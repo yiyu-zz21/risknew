@@ -52,8 +52,11 @@ jobs:
 
       # 步骤5：配置GitHub Pages
       # 为部署做准备，配置Pages相关设置
+      # enablement参数会自动启用Pages（如果尚未启用）
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true
 
       # 步骤6：上传构建产物
       # 将构建生成的dist目录打包上传，供后续部署使用
