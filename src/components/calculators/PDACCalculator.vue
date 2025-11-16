@@ -13,22 +13,25 @@
             :label="$t('pdac.form.farValue.label')"
             prop="farValue"
           >
-            <el-input
-              v-model="formData.farValue"
-              :placeholder="$t('pdac.form.farValue.placeholder')"
-              clearable
-              type="number"
-              step="0.01"
-            >
-              <template #append>
-                <el-tooltip
-                  :content="$t('pdac.form.farValue.description')"
-                  placement="top"
-                >
-                  <el-icon><QuestionFilled /></el-icon>
-                </el-tooltip>
-              </template>
-            </el-input>
+            <div style="display: flex; align-items: center; width: 100%;">
+              <el-input-number
+                v-model="formData.farValue"
+                :placeholder="$t('pdac.form.farValue.placeholder')"
+                :step="0.01"
+                :precision="2"
+                :min="0"
+                controls-position="right"
+                style="flex: 1;"
+                class="custom-input-number"
+              />
+              <el-tooltip
+                :content="$t('pdac.form.farValue.description')"
+                placement="top"
+                style="margin-left: 8px;"
+              >
+                <el-icon><QuestionFilled /></el-icon>
+              </el-tooltip>
+            </div>
           </el-form-item>
         </el-col>
 
@@ -37,22 +40,25 @@
             :label="$t('pdac.form.ca19_9.label')"
             prop="ca19_9"
           >
-            <el-input
-              v-model="formData.ca19_9"
-              :placeholder="$t('pdac.form.ca19_9.placeholder')"
-              clearable
-              type="number"
-              step="0.01"
-            >
-              <template #append>
-                <el-tooltip
-                  :content="$t('pdac.form.ca19_9.description')"
-                  placement="top"
-                >
-                  <el-icon><QuestionFilled /></el-icon>
-                </el-tooltip>
-              </template>
-            </el-input>
+            <div style="display: flex; align-items: center; width: 100%;">
+              <el-input-number
+                v-model="formData.ca19_9"
+                :placeholder="$t('pdac.form.ca19_9.placeholder')"
+                :step="0.01"
+                :precision="2"
+                :min="0"
+                controls-position="right"
+                style="flex: 1;"
+                class="custom-input-number"
+              />
+              <el-tooltip
+                :content="$t('pdac.form.ca19_9.description')"
+                placement="top"
+                style="margin-left: 8px;"
+              >
+                <el-icon><QuestionFilled /></el-icon>
+              </el-tooltip>
+            </div>
           </el-form-item>
         </el-col>
       </el-row>
@@ -157,8 +163,8 @@ const calculatorStore = useCalculatorStore()
 
 // 表单数据
 const formData = reactive<PDACFormData>({
-  farValue: '',
-  ca19_9: '',
+  farValue: undefined,
+  ca19_9: undefined,
   differentiation: '',
   nStaging: ''
 })
@@ -176,11 +182,11 @@ const calculationResult = computed(() => calculatorStore.getCalculationResult('p
 const formRules = reactive({
   farValue: [
     { required: true, message: t('common.required'), trigger: 'blur' },
-    { pattern: /^[0-9]+(\.[0-9]+)?$/, message: t('common.pleaseEnter') + ' ' + t('pdac.form.farValue.label'), trigger: 'blur' }
+    { type: 'number', message: t('common.pleaseEnter') + ' ' + t('pdac.form.farValue.label'), trigger: 'blur' }
   ],
   ca19_9: [
     { required: true, message: t('common.required'), trigger: 'blur' },
-    { pattern: /^[0-9]+(\.[0-9]+)?$/, message: t('common.pleaseEnter') + ' ' + t('pdac.form.ca19_9.label'), trigger: 'blur' }
+    { type: 'number', message: t('common.pleaseEnter') + ' ' + t('pdac.form.ca19_9.label'), trigger: 'blur' }
   ],
   differentiation: [
     { required: true, message: t('common.required'), trigger: 'change' }
@@ -308,5 +314,34 @@ initializeForm()
 :deep(.el-button) {
   font-size: 15px;
   padding: 12px 24px;
+}
+
+:deep(.el-input-number) {
+  width: 100%;
+}
+
+:deep(.el-input-number .el-input__inner) {
+  text-align: left;
+  height: 36px;
+  line-height: 36px;
+}
+
+.custom-input-number :deep(.el-input__wrapper) {
+  padding: 1px 11px;
+  box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
+}
+
+.custom-input-number :deep(.el-input-number__decrease),
+.custom-input-number :deep(.el-input-number__increase) {
+  width: 28px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 12px;
+  background: var(--el-fill-color-light);
+  border-left: 1px solid var(--el-border-color);
+}
+
+.custom-input-number :deep(.el-input-number__decrease) {
+  border-top: 1px solid var(--el-border-color);
 }
 </style>

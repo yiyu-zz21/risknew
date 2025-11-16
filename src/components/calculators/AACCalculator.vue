@@ -13,22 +13,25 @@
             :label="$t('aac.form.diameter.label')"
             prop="diameter"
           >
-            <el-input
-              v-model="formData.diameter"
-              :placeholder="$t('aac.form.diameter.placeholder')"
-              clearable
-              type="number"
-              step="0.1"
-            >
-              <template #append>
-                <el-tooltip
-                  :content="$t('aac.form.diameter.description')"
-                  placement="top"
-                >
-                  <el-icon><QuestionFilled /></el-icon>
-                </el-tooltip>
-              </template>
-            </el-input>
+            <div style="display: flex; align-items: center; width: 100%;">
+              <el-input-number
+                v-model="formData.diameter"
+                :placeholder="$t('aac.form.diameter.placeholder')"
+                :step="0.1"
+                :precision="1"
+                :min="0"
+                controls-position="right"
+                style="flex: 1;"
+                class="custom-input-number"
+              />
+              <el-tooltip
+                :content="$t('aac.form.diameter.description')"
+                placement="top"
+                style="margin-left: 8px;"
+              >
+                <el-icon><QuestionFilled /></el-icon>
+              </el-tooltip>
+            </div>
           </el-form-item>
         </el-col>
 
@@ -153,7 +156,7 @@ const calculatorStore = useCalculatorStore()
 
 // 表单数据
 const formData = reactive<AACFormData>({
-  diameter: '',
+  diameter: undefined,
   nerveInvasion: '',
   nStaging: '',
   differentiation: ''
@@ -172,7 +175,7 @@ const calculationResult = computed(() => calculatorStore.getCalculationResult('a
 const formRules = reactive({
   diameter: [
     { required: true, message: t('common.required'), trigger: 'blur' },
-    { pattern: /^[0-9]+(\.[0-9]+)?$/, message: t('common.pleaseEnter') + ' ' + t('aac.form.diameter.label'), trigger: 'blur' }
+    { type: 'number', message: t('common.pleaseEnter') + ' ' + t('aac.form.diameter.label'), trigger: 'blur' }
   ],
   nerveInvasion: [
     { required: true, message: t('common.required'), trigger: 'change' }
@@ -308,5 +311,34 @@ initializeForm()
 :deep(.el-button) {
   font-size: 15px;
   padding: 12px 24px;
+}
+
+:deep(.el-input-number) {
+  width: 100%;
+}
+
+:deep(.el-input-number .el-input__inner) {
+  text-align: left;
+  height: 36px;
+  line-height: 36px;
+}
+
+.custom-input-number :deep(.el-input__wrapper) {
+  padding: 1px 11px;
+  box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
+}
+
+.custom-input-number :deep(.el-input-number__decrease),
+.custom-input-number :deep(.el-input-number__increase) {
+  width: 28px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 12px;
+  background: var(--el-fill-color-light);
+  border-left: 1px solid var(--el-border-color);
+}
+
+.custom-input-number :deep(.el-input-number__decrease) {
+  border-top: 1px solid var(--el-border-color);
 }
 </style>

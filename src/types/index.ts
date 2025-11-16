@@ -45,23 +45,23 @@ export interface SelectOption {
 
 // PDAC 计算器特有类型
 export interface PDACFormData {
-  farValue: string
-  ca19_9: string
+  farValue: number | undefined
+  ca19_9: number | undefined
   differentiation: string
   nStaging: string
 }
 
 // DCC 计算器特有类型
 export interface DCCFormData {
-  ca19_9: string
-  diameter: string
+  ca19_9: number | undefined
+  diameter: number | undefined
   differentiation: string
   nerveInvasion: string
 }
 
 // AAC 计算器特有类型
 export interface AACFormData {
-  diameter: string
+  diameter: number | undefined
   nerveInvasion: string
   nStaging: string
   differentiation: string
