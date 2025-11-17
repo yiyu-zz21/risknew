@@ -8,7 +8,7 @@
     </el-header>
 
     <el-container>
-      <el-aside width="200px" class="app-sidebar">
+      <!-- <el-aside width="200px" class="app-sidebar">
         <el-menu
           :default-active="$route.path"
           router
@@ -27,7 +27,7 @@
             <span>{{ $t('nav.aac') }}</span>
           </el-menu-item>
         </el-menu>
-      </el-aside>
+      </el-aside> -->
 
       <el-main class="app-main">
         <RouterView />
